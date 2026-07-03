@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+aiosqlite
+aiocryptopay
+httpx
+pyjwt
+aiogram
+python-dotenv
+slowapi
+aiohttp
