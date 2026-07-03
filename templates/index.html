@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Купить Звезды / Premium</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container" id="buy-tab">
+        <div class="input-group">
+            <label><i class="fas fa-user"></i> Получатель</label>
+            <div class="input-wrapper">
+                <input type="text" id="recipient" placeholder="username">
+                <button class="clear-btn" id="clear-recipient" onclick="clearRecipient()" style="display: none;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <button class="myself-btn" onclick="setMyself()">
+                <i class="fas fa-user-check"></i> Для себя
+            </button>
+            <div id="recipient-preview" style="display: none;" class="recipient-preview">
+                <div id="recipient-avatar" class="recipient-avatar">
+                    <i class="fas fa-user fa-2x"></i>
+                </div>
+                <div class="recipient-info">
+                    <div id="recipient-name" class="recipient-name"></div>
+                    <div id="recipient-username" class="recipient-username"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label><i class="fas fa-box"></i> Товар</label>
+            <div class="product-buttons">
+                <button class="product-btn active" id="btn-stars" onclick="selectProduct('stars')">
+                    <i class="fas fa-star"></i> Звезды
+                </button>
+                <button class="product-btn" id="btn-premium" onclick="selectProduct('premium')">
+                    <i class="fas fa-crown"></i> Premium
+                </button>
+            </div>
+        </div>
+        
+        <div id="stars-input">
+            <div class="input-group">
+                <label><i class="fas fa-star"></i> Количество звезд (50-4999)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="stars" value="50" min="50" max="4999">
+                </div>
+            </div>
+        </div>
+        
+        <div id="premium-input" style="display: none;">
+            <div class="input-group">
+                <label><i class="fas fa-calendar-alt"></i> Срок подписки</label>
+                <div class="month-buttons">
+                    <button class="month-btn active" data-months="3" onclick="selectMonths(3)">3 мес</button>
+                    <button class="month-btn" data-months="6" onclick="selectMonths(6)">6 мес</button>
+                    <button class="month-btn" data-months="12" onclick="selectMonths(12)">12 мес</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <button class="promo-toggle" onclick="togglePromo()">
+                <i class="fas fa-ticket-alt"></i> У меня есть промокод
+            </button>
+            <div id="promo-block" style="display: none; margin-top: 10px;">
+                <div class="promo-row">
+                    <div class="input-wrapper" style="flex: 1;">
+                        <input type="text" id="promo" placeholder="Введите промокод">
+                        <button class="clear-btn" id="clear-promo" onclick="clearPromo()" style="display: none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <button class="promo-btn" onclick="applyPromo()">
+                        <i class="fas fa-check"></i> Применить
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="price-info">
+            <div class="price-row" id="discount-row" style="display: none;">
+                <span><i class="fas fa-tag"></i> Скидка:</span>
+                <span id="discount">0.00₽</span>
+            </div>
+            <div class="price-row total">
+                <span><i class="fas fa-shopping-cart"></i> Итого:</span>
+                <span id="total">0.00₽</span>
+            </div>
+        </div>
+        
+        <button class="buy-btn" onclick="handleBuy()">
+            <i class="fas fa-shopping-bag"></i> Купить
+        </button>
+    </div>
+    
+    <div class="container" id="transactions-tab" style="display: none;">
+        <h1><i class="fas fa-history"></i> Транзакции</h1>
+        <div id="transactions-list" class="transactions-list"></div>
+    </div>
+    
+    <div class="container" id="order-detail-tab" style="display: none;">
+        <h1><i class="fas fa-info-circle"></i> Детали заказа</h1>
+        <div id="order-detail" class="order-detail"></div>
+    </div>
+    
+    <div class="tab-bar">
+        <button class="tab-item active" onclick="switchTab('buy')">
+            <div class="tab-icon"><i class="fas fa-shopping-bag"></i></div>
+            <div>Купить</div>
+        </button>
+        <button class="tab-item" onclick="switchTab('transactions')">
+            <div class="tab-icon"><i class="fas fa-list-ul"></i></div>
+            <div>Транзакции</div>
+        </button>
+    </div>
+    
+    <script src="/static/app.js"></script>
+</body>
+</html>
